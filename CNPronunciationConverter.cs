@@ -64,7 +64,7 @@ namespace TeamNMSL.yndcksh
                 }
                 else
                 {
-                    return cn_char.ToString().ToUpper();
+                    return cn_char.ToString().ToUpper()+" ";
                 }
                     
             }
