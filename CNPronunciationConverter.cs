@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Microsoft.International.Converters.PinYinConverter;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-
 namespace TeamNMSL.yndcksh
 {
     /// <summary>
@@ -11,11 +10,7 @@ namespace TeamNMSL.yndcksh
     /// </summary>
     public class CNPronunciationConverter
     {
-        
         static List<string> UsefulCNWords = init();
-
-       
-
         List<string> WordLibrary=new List<string>();
         private static List<string> init()
         {
@@ -29,7 +24,6 @@ namespace TeamNMSL.yndcksh
             return r;
         }
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="CustomWordLibraryJSONArray">JsonArray形式的詞庫</param>
         public CNPronunciationConverter(string CustomWordLibraryJSONArray)
@@ -44,14 +38,11 @@ namespace TeamNMSL.yndcksh
             }
             catch (Exception e)
             {
-
                 throw e;
             }
         }
-
         private string GetPronunciation(string ChineseWord) {
             string GetString(char cn_char){
-               
                     string rr = "";
                 if (ChineseChar.IsValidChar(cn_char))
                 {
@@ -65,23 +56,13 @@ namespace TeamNMSL.yndcksh
                 else
                 {
                     return cn_char.ToString().ToUpper()+" ";
-                }
-                    
+                }    
             }
             string ResultString = "";
             char[] ChineseChars=ChineseWord.ToCharArray();
             foreach (var cn_char in ChineseChars)
             {
-                
-                if (true)
-                {
-                    
-                    ResultString += GetString(cn_char);
-                }
-                else
-                {
-                    throw new Exception("Is not a legal Chinese character");
-                }
+                ResultString += GetString(cn_char);
             }
             return ResultString.TrimEnd();
         }
@@ -89,19 +70,9 @@ namespace TeamNMSL.yndcksh
             string ResultString = "";
             foreach (var pinyin in ChinesePinyin.Split(" "))
             {
-               
-                if (true)
-                {
-                    ResultString += pinyin.ToCharArray()[0];
-                }
-                else
-                {
-                    throw new Exception("Is not a legal Chinese Pinyin");
-                }
-               
+                ResultString += pinyin.ToCharArray()[0];    
             }
             return ResultString;
-
         }
         /// <summary>
         /// 將首字母轉換成你詞庫裏對應的中文字詞，如果詞庫内不包含這個字詞，會從默認的詞庫内匹配，若未匹配到，將返回大寫后的原文
@@ -109,7 +80,6 @@ namespace TeamNMSL.yndcksh
         /// <param name="Abbreviation">拼音縮寫</param>
         /// <returns></returns>
         public string GetTextFromAbbreviation(string Abbreviation) {
-            
             foreach (var Word in WordLibrary)
             {
                 if (GetPinyinAbbreviation(GetPronunciation(Word)).ToLower()==Abbreviation.ToLower())
@@ -124,9 +94,7 @@ namespace TeamNMSL.yndcksh
                     return Word;
                 }
             }
-
             return Abbreviation.ToUpper();
         }
-       
     }
 }
